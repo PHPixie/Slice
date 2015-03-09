@@ -1,0 +1,106 @@
+<?php
+
+namespace PHPixieTests;
+
+/**
+ * @coversDefaultClass \PHPixie\Slice
+ */
+class SliceTest extends \PHPixie\Test\Testcase
+{
+    protected $slice;
+    
+    public function setUp()
+    {
+        $this->slice = new \PHPixie\Slice();
+    }
+    
+    /**
+     * @covers ::iterator
+     * @covers ::<protected>
+     */
+    public function testIterator()
+    {
+        $data = $this->getData();
+        
+        $iterator = $this->slice->iterator($data);
+        $this->assertInstance($iterator, '\PHPixie\Slice\Iterator', array(
+            'data' => $data
+        ));
+    }
+    
+    /**
+     * @covers ::slice
+     * @covers ::<protected>
+     */
+    public function testSlice()
+    {
+        $data = $this->getData();
+        
+        $slice = $this->slice->slice($data);
+        $this->assertInstance($slice, '\PHPixie\Slice\Type\Slice', array(
+            'sliceBuilder' => $this->slice,
+            'data' => $data,
+            'path' => null
+        ));
+        
+        $slice = $this->slice->slice($data, 'pixie');
+        $this->assertInstance($slice, '\PHPixie\Slice\Type\Slice', array(
+            'sliceBuilder' => $this->slice,
+            'data' => $data,
+            'path' => 'pixie'
+        ));
+    }
+
+    /**
+     * @covers ::editableSlice
+     * @covers ::<protected>
+     */
+    public function testEditableSlice()
+    {
+        $data = $this->getData(true);
+        
+        $slice = $this->slice->editableSlice($data);
+        $this->assertInstance($slice, '\PHPixie\Slice\Type\Slice\Editable', array(
+            'sliceBuilder' => $this->slice,
+            'data' => $data,
+            'path' => null
+        ));
+        
+        $slice = $this->slice->editableSlice($data, 'pixie');
+        $this->assertInstance($slice, '\PHPixie\Slice\Type\Slice\Editable', array(
+            'sliceBuilder' => $this->slice,
+            'data' => $data,
+            'path' => 'pixie'
+        ));
+    }
+    
+    /**
+     * @covers ::arrayData
+     * @covers ::<protected>
+     */
+    public function testArrayData()
+    {
+        $data = array('name' => 'Trixie');
+        
+        $arrayData = $this->slice->arrayData($data);
+        $this->assertInstance($arrayData, '\PHPixie\Slice\Type\ArrayData', array(
+            'sliceBuilder' => $this->slice,
+            'data' => $data
+        ));
+        
+        $arrayData = $this->slice->arrayData(null);
+        $this->assertInstance($arrayData, '\PHPixie\Slice\Type\ArrayData', array(
+            'sliceBuilder' => $this->slice,
+            'data' => null
+        ));
+    }
+    
+    public function getData($editable = false)
+    {
+        if($editable) {
+            return $this->abstractMock('\PHPixie\Slice\Data\Editable');    
+        }
+        
+        return $this->abstractMock('\PHPixie\Slice\Data');
+    }
+}
