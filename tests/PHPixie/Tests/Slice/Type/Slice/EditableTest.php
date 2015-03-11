@@ -1,11 +1,11 @@
 <?php
 
-namespace PHPixieTests\Slice\Type\Slice;
+namespace PHPixie\Tests\Slice\Type\Slice;
 
 /**
  * @coversDefaultClass \PHPixie\Slice\Type\Slice\Editable
  */
-class EditableTest extends \PHPixieTests\Slice\Type\SliceTest
+class EditableTest extends \PHPixie\Tests\Slice\Type\SliceTest
 {
     
     /**

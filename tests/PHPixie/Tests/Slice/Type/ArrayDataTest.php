@@ -1,11 +1,11 @@
 <?php
 
-namespace PHPixieTests\Slice\Type;
+namespace PHPixie\Tests\Slice\Type;
 
 /**
  * @coversDefaultClass \PHPixie\Slice\Type\ArrayData
  */
-class ArrayDataTest extends \PHPixieTests\Slice\Data\ImplementationTest
+class ArrayDataTest extends \PHPixie\Tests\Slice\Data\ImplementationTest
 {
     protected $data = array(
         'meadows' => 5,

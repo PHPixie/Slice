@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPixieTests;
+namespace PHPixie\Tests;
 
 /**
  * @coversDefaultClass \PHPixie\Slice

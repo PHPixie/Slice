@@ -1,11 +1,11 @@
 <?php
 
-namespace PHPixieTests\Slice\Type;
+namespace PHPixie\Tests\Slice\Type;
 
 /**
  * @coversDefaultClass \PHPixie\Slice\Type\Slice
  */
-class SliceTest extends \PHPixieTests\Slice\Data\ImplementationTest
+class SliceTest extends \PHPixie\Tests\Slice\Data\ImplementationTest
 {
     protected $data;
     protected $path = 'pixie';

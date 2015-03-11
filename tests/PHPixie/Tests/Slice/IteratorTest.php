@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPixieTests\Slice;
+namespace PHPixie\Tests\Slice;
 
 /**
  * @coversDefaultClass \PHPixie\Slice\Iterator
