@@ -15,5 +15,5 @@ script:
 - "phpunit --coverage-clover build/logs/clover.xml"
 
 after_script:
-  - vendor/bin/codacycoverage build/logs/clover.xml
+  - vendor/bin/codacycoverage clover
 
