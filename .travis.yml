@@ -8,12 +8,12 @@ php:
   - hhvm
 
 before_script: 
-- "composer require codacy/coverage dev-master --dev"
+- "composer require satooshi/php-coveralls --dev"
 - "composer install"
 
 script: 
 - "phpunit --coverage-clover build/logs/clover.xml"
 
 after_script:
-  - CODACY_PROJECT_TOKEN="f1a6f515ca49443f8462ab8712663702" vendor/bin/codacycoverage clover
+  - php vendor/bin/coveralls
 
