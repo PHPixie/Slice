@@ -8,12 +8,12 @@ php:
   - hhvm
 
 before_script: 
-- "composer require codeclimate/php-test-reporter --dev"
+- "composer require codacy/coverage --dev"
 - "composer install"
 
 script: 
 - "phpunit --coverage-clover build/logs/clover.xml"
 
 after_script:
-  - vendor/bin/test-reporter
+  - vendor/bin/codacycoverage build/logs/clover.xml
 
