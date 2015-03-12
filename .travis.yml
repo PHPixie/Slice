@@ -15,5 +15,5 @@ script:
 - "phpunit --coverage-clover build/logs/clover.xml"
 
 after_script:
-  - vendor/bin/codacycoverage clover
+  - CODACY_PROJECT_TOKEN="f1a6f515ca49443f8462ab8712663702" vendor/bin/codacycoverage clover
 
