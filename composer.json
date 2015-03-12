@@ -17,7 +17,7 @@
     },
     "autoload": {
         "psr-4": {
-            "PHPixie\\": "src/PHPixie"},
+            "PHPixie\\": "src/PHPixie",
             "PHPixie\\Tests\\": "tests/PHPixie/Tests"
         }
     },
