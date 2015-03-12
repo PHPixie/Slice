@@ -7,7 +7,7 @@ class ArrayData extends    \PHPixie\Slice\Data\Implementation
 {
     protected $data;
 
-    public function __construct($sliceBuilder, $data = null)
+    public function __construct($sliceBuilder, $data = array())
     {
         parent::__construct($sliceBuilder);
         $this->data = $data;
@@ -32,7 +32,7 @@ class ArrayData extends    \PHPixie\Slice\Data\Implementation
     public function remove($path = null)
     {
         if ($path === null) {
-            $this->data = null;
+            $this->data = array();
             return;
         }
         
@@ -84,17 +84,7 @@ class ArrayData extends    \PHPixie\Slice\Data\Implementation
     }
     
     protected function &findGroup($path, $createMissing = false) {
-        if($this->data === null) {
-            if(!$createMissing) {
-                $return = null;
-                return $return;
-            }
-            
-            $this->data = array();
-        }
-        
         $group = &$this->data;
-        $count = count($group);
         foreach ($path as $i => $key) {
 
             if (!array_key_exists($key, $group)) {
