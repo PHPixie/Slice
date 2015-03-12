@@ -8,7 +8,7 @@ php:
   - hhvm
 
 before_script: 
-- "composer require codacy/coverage --dev"
+- "composer require codacy/coverage dev-master --dev"
 - "composer install"
 
 script: 
