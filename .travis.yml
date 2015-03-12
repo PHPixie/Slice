@@ -12,7 +12,7 @@ before_script:
 - "composer install"
 
 script: 
-- "phpunit --coverage-clover build/logs/clover.xml"
+- "phpunit --coverage-text --coverage-clover build/logs/clover.xml"
 
 after_script:
 - CODECLIMATE_REPO_TOKEN="4ec5a95e2ee4535fc8121bf46ffcd1e549ef1a79a7e8c7b36b30b24378c3b581" vendor/bin/test-reporter --stdout > codeclimate.json
