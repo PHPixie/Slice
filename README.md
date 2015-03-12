@@ -1,4 +1,4 @@
-# Data
+# Slice
 Data representation library
 
 [![Build Status](https://travis-ci.org/PHPixie/Slice.svg?branch=master)](https://travis-ci.org/PHPixie/Slice)
