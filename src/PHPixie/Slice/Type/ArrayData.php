@@ -2,8 +2,7 @@
 
 namespace PHPixie\Slice\Type;
 
-class ArrayData extends    \PHPixie\Slice\Data\Implementation
-                implements \PHPixie\Slice\Data\Editable
+class ArrayData extends \PHPixie\Slice\Data\Implementation
 {
     protected $data;
 
@@ -13,37 +12,6 @@ class ArrayData extends    \PHPixie\Slice\Data\Implementation
         $this->data = $data;
     }
 
-    public function set($path, $value)
-    {
-        if ($path === null) {
-            
-            if (!is_array($value)) {
-                throw new \PHPixie\Slice\Exception("Only array values can be set as root");
-            }
-            $this->data = $value;
-            return;
-        }
-        
-        list($path, $key) = $this->splitPath($path);
-        $parent = &$this->findGroup($path, true);
-        $parent[$key] = $value;
-    }
-
-    public function remove($path = null)
-    {
-        if ($path === null) {
-            $this->data = array();
-            return;
-        }
-        
-        list($path, $key) = $this->splitPath($path);
-        $parent = &$this->findGroup($path);
-        
-        if($parent !== null) {
-            unset($parent[$key]);
-        }
-    }
-    
     public function keys($path = null, $isRequired = false)
     {
         $data = $this->getData($path, $isRequired, array());
@@ -73,7 +41,7 @@ class ArrayData extends    \PHPixie\Slice\Data\Implementation
                     
     public function slice($path = null)
     {
-        return $this->sliceBuilder->editableSlice($this, $path);
+        return $this->sliceBuilder->slice($this, $path);
     }
     
     protected function splitPath($path)

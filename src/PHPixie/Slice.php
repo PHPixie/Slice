@@ -23,4 +23,9 @@ class Slice
     {
         return new Slice\Type\ArrayData($this, $data);
     }
+    
+    public function editableArrayData($data = null)
+    {
+        return new Slice\Type\ArrayData\Editable($this, $data);
+    }
 }

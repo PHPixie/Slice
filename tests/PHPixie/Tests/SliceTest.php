@@ -95,6 +95,27 @@ class SliceTest extends \PHPixie\Test\Testcase
         ));
     }
     
+    /**
+     * @covers ::editableArrayData
+     * @covers ::<protected>
+     */
+    public function testEditableArrayData()
+    {
+        $data = array('name' => 'Trixie');
+        
+        $arrayData = $this->slice->editableArrayData($data);
+        $this->assertInstance($arrayData, '\PHPixie\Slice\Type\ArrayData\Editable', array(
+            'sliceBuilder' => $this->slice,
+            'data' => $data
+        ));
+        
+        $arrayData = $this->slice->editableArrayData(null);
+        $this->assertInstance($arrayData, '\PHPixie\Slice\Type\ArrayData\Editable', array(
+            'sliceBuilder' => $this->slice,
+            'data' => null
+        ));
+    }
+    
     public function getData($editable = false)
     {
         if($editable) {
