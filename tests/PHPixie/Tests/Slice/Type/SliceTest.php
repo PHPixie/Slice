@@ -44,10 +44,10 @@ class SliceTest extends \PHPixie\Tests\Slice\Data\ImplementationTest
         $slice = $this->getSlice();
         $namesPath = $this->path.'.names';
         
-        $this->method($this->data, 'slice', $slice, array($namesPath), 0);
+        $this->method($this->data, 'slice', $slice, array($this->data, $namesPath), 0);
         $this->assertSame($slice, $this->sliceData->slice('names'));
         
-        $this->method($this->data, 'slice', $slice, array($this->path), 0);
+        $this->method($this->data, 'slice', $slice, array($this->data, $this->path), 0);
         $this->assertSame($slice, $this->sliceData->slice());
     }
     
@@ -106,6 +106,17 @@ class SliceTest extends \PHPixie\Tests\Slice\Data\ImplementationTest
         return $sets;
     }
     
+    /**
+     * @covers ::getIterator
+     * @covers ::<protected>
+     */
+    public function testIterator()
+    {
+        $iterator = $this->getIterator();
+        $this->method($this->sliceBuilder, 'iterator', $iterator, array($this->sliceData), 0);
+        $this->assertSame($iterator, $this->sliceData->getIterator());
+    }
+    
     protected function getData()
     {
         return $this->abstractMock('\PHPixie\Slice\Data');
@@ -122,6 +133,19 @@ class SliceTest extends \PHPixie\Tests\Slice\Data\ImplementationTest
             $this->sliceBuilder,
             $this->data,
             $this->path
+        );
+    }
+    
+    protected function sliceDataMock($methods = null)
+    {
+        return $this->getMock(
+            '\PHPixie\Slice\Type\Slice',
+            $methods,
+            array(
+                $this->sliceBuilder,
+                $this->data,
+                $this->path
+            )
         );
     }
 }

@@ -22,23 +22,12 @@ class Slice extends \PHPixie\Slice\Data\Implementation
 
     public function slice($path = null)
     {
-        return $this->data->slice($this->dataPath($path));
+        return $this->data->slice($this->data, $this->dataPath($path));
     }
     
     public function keys($path = null, $isRequired = false)
     {
         return $this->data->keys($this->dataPath($path), $isRequired);
-    }
-
-    protected function dataPath($path = null)
-    {
-        if($this->path === null)
-            return $path;
-        
-        if ($path === null)
-            return $this->path;
-        
-        return $this->path.'.'.$path;
     }
 
     public function path($path = null)
@@ -50,5 +39,15 @@ class Slice extends \PHPixie\Slice\Data\Implementation
         }
         
         return $path;
+    }
+    
+    public function getIterator()
+    {
+        return $this->sliceBuilder->iterator($this);
+    }
+    
+    protected function dataPath($path)
+    {
+        return $this->mergePath($this->path, $path);
     }
 }

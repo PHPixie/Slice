@@ -14,4 +14,9 @@ class Editable extends    \PHPixie\Slice\Type\Slice
     {
         $this->data->remove($this->dataPath($path));
     }
+    
+    public function editableSlice($path = null)
+    {
+        return $this->data->editableSlice($this->data, $this->dataPath($path));
+    }
 }

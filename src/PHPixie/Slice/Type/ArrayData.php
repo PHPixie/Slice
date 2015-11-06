@@ -41,7 +41,12 @@ class ArrayData extends \PHPixie\Slice\Data\Implementation
                     
     public function slice($path = null)
     {
-        return $this->sliceBuilder->slice($this, $path);
+        return $this->arraySlice($path);
+    }
+    
+    public function getIterator()
+    {
+        return new \ArrayIterator($this->data);
     }
     
     protected function splitPath($path)

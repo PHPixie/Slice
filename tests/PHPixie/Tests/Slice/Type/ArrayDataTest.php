@@ -22,8 +22,8 @@ class ArrayDataTest extends \PHPixie\Tests\Slice\Data\ImplementationTest
         ),
         'lake' => array(
             'mermaids' => array(
-                            'names' => array('Naiad')
-                        )
+                'names' => array('Naiad')
+            )
         )
     );
     
@@ -35,13 +35,21 @@ class ArrayDataTest extends \PHPixie\Tests\Slice\Data\ImplementationTest
      */
     public function testSlice()
     {
-        $slice = $this->getSlice();
+        $mock = $this->sliceDataMock(array('arraySlice'));
         
-        $this->method($this->sliceBuilder, $this->sliceMethod, $slice, array($this->sliceData, null), 0);
-        $this->assertSame($slice, $this->sliceData->slice());
-        
-        $this->method($this->sliceBuilder, $this->sliceMethod, $slice, array($this->sliceData, 'pixie'), 0);
-        $this->assertSame($slice, $this->sliceData->slice('pixie'));
+        foreach(array(true, false) as $withPath) {
+            $path = $withPath ? 'pixie' : null;
+            
+            $slice = $this->getArraySlice();
+            $this->method($mock, 'arraySlice', $slice, array($path), 0);
+            
+            $args = array();
+            if($withPath) {
+                $args[]= $path;
+            }
+            $result = call_user_func_array(array($mock, 'slice'), $args);
+            $this->assertSame($slice, $result);
+        }
     }
     
     /**
@@ -90,8 +98,34 @@ class ArrayDataTest extends \PHPixie\Tests\Slice\Data\ImplementationTest
         return $sets;
     }
     
+    /**
+     * @covers ::getIterator
+     * @covers ::<protected>
+     */
+    public function testIterator()
+    {
+        $iterator = $this->sliceData->getIterator();
+        $this->assertInstance($iterator, '\ArrayIterator');
+        $this->assertSame($this->data, $iterator->getArrayCopy());
+    }
+    
     protected function sliceData()
     {
-        return new \PHPixie\Slice\Type\ArrayData($this->sliceBuilder, $this->data);
+        return new \PHPixie\Slice\Type\ArrayData(
+            $this->sliceBuilder,
+            $this->data
+        );
+    }
+    
+    protected function sliceDataMock($methods = null)
+    {
+        return $this->getMock(
+            '\PHPixie\Slice\Type\ArrayData',
+            $methods,
+            array(
+                $this->sliceBuilder,
+                $this->data
+            )
+        );
     }
 }

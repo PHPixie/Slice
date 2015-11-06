@@ -10,4 +10,5 @@ interface Data extends \IteratorAggregate
     
     public function keys($path = null, $isRequired = false);
     public function slice($path = null);
+    public function arraySlice($path = null);
 }
