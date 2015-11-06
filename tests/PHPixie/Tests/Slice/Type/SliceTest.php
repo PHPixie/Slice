@@ -44,11 +44,27 @@ class SliceTest extends \PHPixie\Tests\Slice\Data\ImplementationTest
         $slice = $this->getSlice();
         $namesPath = $this->path.'.names';
         
-        $this->method($this->data, 'slice', $slice, array($this->data, $namesPath), 0);
+        $this->method($this->data, 'slice', $slice, array($namesPath), 0);
         $this->assertSame($slice, $this->sliceData->slice('names'));
         
-        $this->method($this->data, 'slice', $slice, array($this->data, $this->path), 0);
+        $this->method($this->data, 'slice', $slice, array($this->path), 0);
         $this->assertSame($slice, $this->sliceData->slice());
+    }
+    
+    /**
+     * @covers ::arraySlice
+     * @covers ::<protected>
+     */
+    public function testArraySlice()
+    {
+        $slice = $this->getArraySlice();
+        $namesPath = $this->path.'.names';
+        
+        $this->method($this->data, 'arraySlice', $slice, array($namesPath), 0);
+        $this->assertSame($slice, $this->sliceData->arraySlice('names'));
+        
+        $this->method($this->data, 'arraySlice', $slice, array($this->path), 0);
+        $this->assertSame($slice, $this->sliceData->arraySlice());
     }
     
     /**
@@ -133,19 +149,6 @@ class SliceTest extends \PHPixie\Tests\Slice\Data\ImplementationTest
             $this->sliceBuilder,
             $this->data,
             $this->path
-        );
-    }
-    
-    protected function sliceDataMock($methods = null)
-    {
-        return $this->getMock(
-            '\PHPixie\Slice\Type\Slice',
-            $methods,
-            array(
-                $this->sliceBuilder,
-                $this->data,
-                $this->path
-            )
         );
     }
 }

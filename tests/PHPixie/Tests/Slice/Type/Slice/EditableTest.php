@@ -7,7 +7,6 @@ namespace PHPixie\Tests\Slice\Type\Slice;
  */
 class EditableTest extends \PHPixie\Tests\Slice\Type\SliceTest
 {
-    
     /**
      * @covers ::set
      * @covers ::<protected>

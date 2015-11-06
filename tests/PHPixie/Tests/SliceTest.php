@@ -75,6 +75,29 @@ class SliceTest extends \PHPixie\Test\Testcase
     }
     
     /**
+     * @covers ::arraySlice
+     * @covers ::<protected>
+     */
+    public function testArraySlice()
+    {
+        $data = array('name' => 'Trixie');
+        
+        $arrayData = $this->slice->arraySlice($data, 'pixie');
+        $this->assertInstance($arrayData, '\PHPixie\Slice\Type\ArrayData\Slice', array(
+            'sliceBuilder' => $this->slice,
+            'data' => $data,
+            'path' => 'pixie'
+        ));
+        
+        $arrayData = $this->slice->arraySlice(null);
+        $this->assertInstance($arrayData, '\PHPixie\Slice\Type\ArrayData\Slice', array(
+            'sliceBuilder' => $this->slice,
+            'data' => null,
+            'path' => null
+        ));
+    }
+    
+    /**
      * @covers ::arrayData
      * @covers ::<protected>
      */
@@ -119,7 +142,7 @@ class SliceTest extends \PHPixie\Test\Testcase
     public function getData($editable = false)
     {
         if($editable) {
-            return $this->abstractMock('\PHPixie\Slice\Data\Editable');    
+            return $this->abstractMock('\PHPixie\Slice\Data\Editable');
         }
         
         return $this->abstractMock('\PHPixie\Slice\Data');

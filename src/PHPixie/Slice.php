@@ -23,14 +23,14 @@ class Slice
     {
         return new Slice\Type\ArrayData($this, $data);
     }
-    
-    public function arraySlice($path = null, $data = null)
-    {
-        return new Slice\Type\ArrayData\Slice($this, $path, $data);
-    }
-    
+        
     public function editableArrayData($data = null)
     {
         return new Slice\Type\ArrayData\Editable($this, $data);
+    }
+    
+    public function arraySlice($data = null, $path = null)
+    {
+        return new Slice\Type\ArrayData\Slice($this, $data, $path);
     }
 }

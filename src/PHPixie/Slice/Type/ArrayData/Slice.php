@@ -7,18 +7,13 @@ class Slice extends    \PHPixie\Slice\Type\ArrayData
 {
     protected $path;
 
-    public function __construct($sliceBuilder, $path, $data = null)
+    public function __construct($sliceBuilder, $data = null, $path = null)
     {
         parent::__construct($sliceBuilder, $data);
         $this->path = $path;
     }
     
     public function path($path = null)
-    {
-        return $this->dataPath($path);
-    }
-    
-    public function dataPath($path)
     {
         return $this->mergePath($this->path, $path);
     }

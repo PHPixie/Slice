@@ -7,8 +7,6 @@ namespace PHPixie\Tests\Slice\Type\ArrayData;
  */
 class EditableTest extends \PHPixie\Tests\Slice\Type\ArrayDataTest
 {
-    protected $sliceMethod = 'editableSlice';
-    
     /**
      * @covers ::set
      * @covers ::<protected>
@@ -61,6 +59,21 @@ class EditableTest extends \PHPixie\Tests\Slice\Type\ArrayDataTest
     }
     
     /**
+     * @covers ::slice
+     * @covers ::<protected>
+     */
+    public function testSlice()
+    {
+        $slice = $this->getSlice();
+        
+        $this->method($this->sliceBuilder, 'editableSlice', $slice, array($this->sliceData, null), 0);
+        $this->assertSame($slice, $this->sliceData->slice());
+        
+        $this->method($this->sliceBuilder, 'editableSlice', $slice, array($this->sliceData, 'pixie'), 0);
+        $this->assertSame($slice, $this->sliceData->slice('pixie'));
+    }
+    
+    /**
      * @covers ::remove
      * @covers ::getData
      * @covers ::<protected>
@@ -74,6 +87,9 @@ class EditableTest extends \PHPixie\Tests\Slice\Type\ArrayDataTest
     
     protected function sliceData()
     {
-        return new \PHPixie\Slice\Type\ArrayData\Editable($this->sliceBuilder, $this->data);
+        return new \PHPixie\Slice\Type\ArrayData\Editable(
+            $this->sliceBuilder,
+            $this->data
+        );
     }
 }

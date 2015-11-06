@@ -38,11 +38,6 @@ class Editable extends    \PHPixie\Slice\Type\ArrayData
     
     public function slice($path = null)
     {
-        return $this->sliceBuilder->slice($this, $path);
-    }
-    
-    public function editableSlice($path = null)
-    {
         return $this->sliceBuilder->editableSlice($this, $path);
     }
 }

@@ -7,7 +7,7 @@ class Slice extends \PHPixie\Slice\Data\Implementation
     protected $data;
     protected $path;
 
-    public function __construct($sliceBuilder, $data, $path = null)
+    public function __construct($sliceBuilder, $data = null, $path = null)
     {
         $this->data = $data;
         $this->path = $path;
@@ -22,7 +22,12 @@ class Slice extends \PHPixie\Slice\Data\Implementation
 
     public function slice($path = null)
     {
-        return $this->data->slice($this->data, $this->dataPath($path));
+        return $this->data->slice($this->dataPath($path));
+    }
+    
+    public function arraySlice($path = null)
+    {
+        return $this->data->arraySlice($this->dataPath($path));
     }
     
     public function keys($path = null, $isRequired = false)

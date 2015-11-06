@@ -51,32 +51,6 @@ abstract class ImplementationTest extends \PHPixie\Test\Testcase
         }
     }
     
-    /**
-     * @covers ::arraySlice
-     * @covers ::<protected>
-     */
-    public function testArraySlice()
-    {
-        $mock = $this->sliceDataMock(array('get', 'path'));
-        $data = array('test');
-        
-        foreach(array(true, false) as $withPath) {
-            $path = $withPath ? 'pixie' : null;
-            $this->method($mock, 'get', $data, array($path, null), 0);
-            $this->method($mock, 'path', 'trixie', array($path), 1);
-            
-            $slice = $this->getArraySlice();
-            $this->method($this->sliceBuilder, 'arraySlice', $slice, array('trixie', $data), 0);
-            
-            $args = array();
-            if($withPath) {
-                $args[]= $path;
-            }
-            $result = call_user_func_array(array($mock, 'arraySlice'), $args);
-            $this->assertSame($slice, $result);
-        }
-    }
-    
     protected function assertSliceException($callback)
     {
         $this->assertException($callback, '\PHPixie\Slice\Exception');
@@ -99,5 +73,4 @@ abstract class ImplementationTest extends \PHPixie\Test\Testcase
         
     abstract protected function prepareGetDataSets();
     abstract protected function sliceData();
-    abstract protected function sliceDataMock($methods = null);
 }
