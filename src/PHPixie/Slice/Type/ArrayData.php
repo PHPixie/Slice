@@ -12,12 +12,20 @@ class ArrayData extends \PHPixie\Slice\Data\Implementation
         $this->data = $data;
     }
 
+    /**
+     * @return array
+     * @throws \PHPixie\Slice\Exception
+     */
     public function keys($path = null, $isRequired = false)
     {
         $data = $this->getData($path, $isRequired, array());
         return array_keys($data);
     }
-    
+
+    /**
+     * @return array|null
+     * @throws \PHPixie\Slice\Exception
+     */
     public function getData($path = null, $isRequired = false, $default = null)
     {
         if ($path !== null) {
@@ -38,12 +46,20 @@ class ArrayData extends \PHPixie\Slice\Data\Implementation
         
         throw new \PHPixie\Slice\Exception("Data for '$path' is not set.");
     }
-                    
+
+    /**
+     * @param null $path
+     * @return \PHPixie\Slice\Type\ArrayData\Slice
+     */
     public function slice($path = null)
     {
         return $this->arraySlice($path);
     }
-    
+
+    /**
+     * @param null $path
+     * @return \PHPixie\Slice\Type\ArrayData\Slice
+     */
     public function arraySlice($path = null)
     {
         $data = $this->get($path);
