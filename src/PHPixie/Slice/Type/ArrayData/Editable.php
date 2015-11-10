@@ -5,6 +5,9 @@ namespace PHPixie\Slice\Type\ArrayData;
 class Editable extends    \PHPixie\Slice\Type\ArrayData
                implements \PHPixie\Slice\Data\Editable
 {
+    /**
+     * @throws \PHPixie\Slice\Exception
+     */
     public function set($path, $value)
     {
         if ($path === null) {
@@ -21,6 +24,9 @@ class Editable extends    \PHPixie\Slice\Type\ArrayData
         $parent[$key] = $value;
     }
 
+    /**
+     * @throws \PHPixie\Slice\Exception
+     */
     public function remove($path = null)
     {
         if ($path === null) {
@@ -35,7 +41,10 @@ class Editable extends    \PHPixie\Slice\Type\ArrayData
             unset($parent[$key]);
         }
     }
-    
+
+    /**
+     * @return \PHPixie\Slice\Type\Slice\Editable
+     */
     public function slice($path = null)
     {
         return $this->sliceBuilder->editableSlice($this, $path);
