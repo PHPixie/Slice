@@ -4,6 +4,9 @@ namespace PHPixie\Slice;
 
 class Iterator implements \Iterator
 {
+    /**
+     * @type \PHPixie\Slice\Data
+     */
     protected $data;
     protected $keys;
     

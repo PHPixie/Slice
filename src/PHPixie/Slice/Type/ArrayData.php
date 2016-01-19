@@ -23,32 +23,41 @@ class ArrayData extends \PHPixie\Slice\Data\Implementation
     }
 
     /**
-     * @return array|null
+     * @param string $path
+     * @param bool $isRequired
+     * @param mixed $default
+     * @return mixed
      * @throws \PHPixie\Slice\Exception
      */
     public function getData($path = null, $isRequired = false, $default = null)
     {
-        if ($path !== null) {
-            list($parentPath, $key) = $this->splitPath($path);
-            $parent = &$this->findGroup($parentPath);
-            if ($parent !== null && array_key_exists($key, $parent)) {
-                return $parent[$key];
+        try {
+            if ($path !== null) {
+                list($parentPath, $key) = $this->splitPath($path);
+                $parent = &$this->findGroup($parentPath);
+                if ($parent !== null && array_key_exists($key, $parent)) {
+                    return $parent[$key];
+                }
+
+            } elseif (!empty($this->data)) {
+                return $this->data;
+
             }
-            
-        }elseif(!empty($this->data)) {
-            return $this->data;
-            
+
+            if (!$isRequired) {
+                return $default;
+            }
+        }catch (\Exception $e){
+            if (!$isRequired) {
+                return $default;
+            }
+            throw new \PHPixie\Slice\Exception($e->getMessage(), $e->getCode(), $e->getPrevious());
         }
-        
-        if (!$isRequired) {
-            return $default;
-        }
-        
         throw new \PHPixie\Slice\Exception("Data for '$path' is not set.");
     }
 
     /**
-     * @param null $path
+     * @param string $path
      * @return \PHPixie\Slice\Type\ArrayData\Slice
      */
     public function slice($path = null)
@@ -57,7 +66,7 @@ class ArrayData extends \PHPixie\Slice\Data\Implementation
     }
 
     /**
-     * @param null $path
+     * @param string $path
      * @return \PHPixie\Slice\Type\ArrayData\Slice
      */
     public function arraySlice($path = null)

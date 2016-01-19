@@ -15,7 +15,9 @@ abstract class Implementation implements \PHPixie\Slice\Data
     }
 
     /**
-     * @return array|string|null
+     * @param string $key
+     * @param mixed $default
+     * @return mixed
      */
     public function get($key = null, $default = null)
     {
@@ -23,7 +25,8 @@ abstract class Implementation implements \PHPixie\Slice\Data
     }
 
     /**
-     * @return array|string|null
+     * @param string $key
+     * @return mixed
      */
     public function getRequired($key = null)
     {

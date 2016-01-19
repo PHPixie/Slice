@@ -4,6 +4,9 @@ namespace PHPixie\Slice\Type;
 
 class Slice extends \PHPixie\Slice\Data\Implementation
 {
+    /**
+     * @type \PHPixie\Slice\Data\Slice
+     */
     protected $data;
     protected $path;
 
