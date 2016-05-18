@@ -54,7 +54,7 @@ class Merge extends \PHPixie\Slice\Data\Implementation
             return $override;
         }
 
-        return array_merge($base, $override);
+        return array_replace_recursive($base, $override);
     }
 
     /**
