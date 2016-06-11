@@ -53,6 +53,18 @@ class ArrayDataTest extends \PHPixie\Tests\Slice\Data\ImplementationTest
     }
     
     /**
+     * @covers ::get
+     * @covers ::<protected>
+     */
+    public function testGetNestedMissing()
+    {
+        $this->data = array();
+        $arrayData = $this->sliceData();
+        $this->assertSame(null, $arrayData->get('param'));
+        $this->assertSame(null, $arrayData->get('param.child'));
+    }
+    
+    /**
      * @covers ::slice
      * @covers ::<protected>
      */
