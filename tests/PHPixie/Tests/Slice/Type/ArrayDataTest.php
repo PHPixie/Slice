@@ -58,7 +58,7 @@ class ArrayDataTest extends \PHPixie\Tests\Slice\Data\ImplementationTest
      */
     public function testGetNestedMissing()
     {
-        $this->data = array();
+        $this->data = null;
         $arrayData = $this->sliceData();
         $this->assertSame(null, $arrayData->get('param'));
         $this->assertSame(null, $arrayData->get('param.child'));

@@ -79,13 +79,19 @@ class ArrayData extends \PHPixie\Slice\Data\Implementation
     }
     
     protected function &findGroup($path, $createMissing = false) {
+        $null = null;
+        
+        if(!is_array($this->data)) {
+            return $null;
+        }
+        
         $group = &$this->data;
+        
         foreach ($path as $i => $key) {
 
             if (!array_key_exists($key, $group)) {
                 if (!$createMissing) {
-                    $return = null;
-                    return $return;
+                    return $null;
                 }
 
                 $group[$key] = array();
@@ -93,8 +99,7 @@ class ArrayData extends \PHPixie\Slice\Data\Implementation
 
             if (!is_array($group[$key])) {
                 if (!$createMissing) {
-                    $return = null;
-                    return $return;
+                    return $null;
                 }
 
                 throw new \PHPixie\Slice\Exception("An element with key '$key' is not an array.");
