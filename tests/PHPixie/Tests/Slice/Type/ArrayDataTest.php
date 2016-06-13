@@ -36,6 +36,7 @@ class ArrayDataTest extends \PHPixie\Tests\Slice\Data\ImplementationTest
         $this->assertSame(array('meadows', 'meadow', 'lake'), $this->sliceData->keys());
         $this->assertSame(array('names'), $this->sliceData->keys('meadow.fairies'));
         $this->assertSame(array(), $this->sliceData->keys('meadow.fairies.pixie'));
+        $this->assertSame(null, $this->sliceData->keys('meadows'));
         
         $sliceData = $this->sliceData;
         $this->assertSliceException(function () use($sliceData) {

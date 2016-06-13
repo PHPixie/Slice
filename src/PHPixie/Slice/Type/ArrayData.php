@@ -13,12 +13,15 @@ class ArrayData extends \PHPixie\Slice\Data\Implementation
     }
 
     /**
-     * @return array
+     * @return array|null
      * @throws \PHPixie\Slice\Exception
      */
     public function keys($path = null, $isRequired = false)
     {
         $data = $this->getData($path, $isRequired, array());
+        if(!is_array($data)) {
+            return null;
+        }
         return array_keys($data);
     }
 
