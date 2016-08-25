@@ -34,6 +34,8 @@ abstract class Implementation implements \PHPixie\Slice\Data
     }
 
     /**
+     * @param string $prefix
+     * @param string $path
      * @return string
      */
     protected function mergePath($prefix, $path = null)

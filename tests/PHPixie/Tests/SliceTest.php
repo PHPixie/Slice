@@ -138,6 +138,23 @@ class SliceTest extends \PHPixie\Test\Testcase
             'data' => null
         ));
     }
+
+    /**
+     * @covers ::mergeData
+     * @covers ::<protected>
+     */
+    public function testMergeData()
+    {
+        $baseData = $this->quickMock('\PHPixie\Slice\Data');
+        $overrideData = $this->quickMock('\PHPixie\Slice\Data');
+
+        $mergeData = $this->slice->mergeData($baseData, $overrideData);
+        $this->assertInstance($mergeData, '\PHPixie\Slice\Type\Merge', array(
+            'sliceBuilder' => $this->slice,
+            'baseData' => $baseData,
+            'overrideData' => $overrideData
+        ));
+    }
     
     public function getData($editable = false)
     {

@@ -19,17 +19,22 @@ class Slice
         return new Slice\Type\Slice\Editable($this, $data, $path);
     }
     
-    public function arrayData($data = null)
+    public function arrayData($data = array())
     {
         return new Slice\Type\ArrayData($this, $data);
     }
         
-    public function editableArrayData($data = null)
+    public function editableArrayData($data = array())
     {
         return new Slice\Type\ArrayData\Editable($this, $data);
     }
+
+    public function mergeData($baseData, $overrideData)
+    {
+        return new Slice\Type\Merge($this, $baseData, $overrideData);
+    }
     
-    public function arraySlice($data = null, $path = null)
+    public function arraySlice($data = array(), $path = null)
     {
         return new Slice\Type\ArrayData\Slice($this, $data, $path);
     }
