@@ -64,7 +64,7 @@ class EditableTest extends \PHPixie\Tests\Slice\Type\ArrayDataTest
      */
     public function testSlice()
     {
-        $slice = $this->getSlice();
+        $slice = $this->getEditableSlice();
         
         $this->method($this->sliceBuilder, 'editableSlice', $slice, array($this->sliceData, null), 0);
         $this->assertSame($slice, $this->sliceData->slice());

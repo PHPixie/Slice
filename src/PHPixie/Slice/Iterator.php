@@ -11,7 +11,7 @@ class Iterator implements \Iterator
     protected $keyCount;
     protected $currentKey;
     
-    public function __construct($data)
+    public function __construct(Data $data)
     {
         $this->data = $data;
         $this->rewind();
@@ -27,7 +27,7 @@ class Iterator implements \Iterator
         return $this->currentKey;
     }
     
-    public function next()
+    public function next() : void
     {
         $this->keyOffset++;
         if($this->valid()) {
@@ -35,16 +35,20 @@ class Iterator implements \Iterator
         }
     }
         
-    public function rewind()
+    public function rewind() : void
     {
         $this->keys = $this->data->keys();
         
         $this->keyOffset  = 0;
-        $this->keyCount   = count($this->keys);
-        $this->currentKey = $this->keys[$this->keyOffset];
+        $this->currentKey = null;
+
+        if($this->keys !== null) {
+            $this->keyCount   = count($this->keys);
+            $this->currentKey = $this->keys[$this->keyOffset];
+        }
     }
     
-    public function valid()
+    public function valid() : bool
     {
         return $this->keyOffset < $this->keyCount;
     }

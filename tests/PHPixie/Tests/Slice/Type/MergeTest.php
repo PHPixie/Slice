@@ -59,12 +59,10 @@ class MergeTest extends \PHPixie\Tests\Slice\Data\ImplementationTest
         )
     );
 
-    public function setUp()
+    public function setUpChild()
     {
         $this->base = new \PHPixie\Slice\Type\ArrayData($this->sliceBuilder, $this->baseData);
         $this->override = new \PHPixie\Slice\Type\ArrayData($this->sliceBuilder, $this->overrideData);
-
-        parent::setUp();
     }
 
     /**

@@ -2,21 +2,19 @@
 
 namespace PHPixie\Slice\Type;
 
-class ArrayData extends \PHPixie\Slice\Data\Implementation
+use PHPixie\Slice;
+
+class ArrayData extends Slice\Data\Implementation
 {
     protected $data;
 
-    public function __construct($sliceBuilder, $data = array())
+    public function __construct(Slice $sliceBuilder, ?array $data = array())
     {
         parent::__construct($sliceBuilder);
         $this->data = $data;
     }
 
-    /**
-     * @return array|null
-     * @throws \PHPixie\Slice\Exception
-     */
-    public function keys($path = null, $isRequired = false)
+    public function keys(?string $path = null, bool $isRequired = false) : ?array
     {
         $data = $this->getData($path, $isRequired, array());
         if(!is_array($data)) {
@@ -25,11 +23,7 @@ class ArrayData extends \PHPixie\Slice\Data\Implementation
         return array_keys($data);
     }
 
-    /**
-     * @return array|null
-     * @throws \PHPixie\Slice\Exception
-     */
-    public function getData($path = null, $isRequired = false, $default = null)
+    public function getData(?string $path = null, bool $isRequired = false,  $default = null)
     {
         if ($path !== null) {
             list($parentPath, $key) = $this->splitPath($path);
@@ -47,41 +41,34 @@ class ArrayData extends \PHPixie\Slice\Data\Implementation
             return $default;
         }
         
-        throw new \PHPixie\Slice\Exception("Data for '$path' is not set.");
+        throw new Slice\Exception("Data for '$path' is not set.");
     }
 
-    /**
-     * @param null $path
-     * @return \PHPixie\Slice\Type\ArrayData\Slice
-     */
-    public function slice($path = null)
+    public function slice(?string $path = null) : Slice\Data\Slice
     {
         return $this->arraySlice($path);
     }
 
-    /**
-     * @param null $path
-     * @return \PHPixie\Slice\Type\ArrayData\Slice
-     */
-    public function arraySlice($path = null)
+    public function arraySlice(?string $path = null) : ArrayData\Slice
     {
         $data = $this->get($path);
         return $this->sliceBuilder->arraySlice($data, $path);
     }
     
-    public function getIterator()
+    public function getIterator() : \ArrayIterator
     {
         return new \ArrayIterator($this->data);
     }
     
-    protected function splitPath($path)
+    protected function splitPath(string $path) : array
     {
         $path = explode('.', $path);
         $key = array_pop($path);
         return array($path, $key);
     }
     
-    protected function &findGroup($path, $createMissing = false) {
+    protected function &findGroup(?array $path, bool $createMissing = false) : ?array
+    {
         $null = null;
         
         if(!is_array($this->data)) {
@@ -105,7 +92,7 @@ class ArrayData extends \PHPixie\Slice\Data\Implementation
                     return $null;
                 }
 
-                throw new \PHPixie\Slice\Exception("An element with key '$key' is not an array.");
+                throw new Slice\Exception("An element with key '$key' is not an array.");
             }
 
             $group = &$group[$key];

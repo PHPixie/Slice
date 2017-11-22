@@ -10,11 +10,16 @@ abstract class ImplementationTest extends \PHPixie\Test\Testcase
     protected $sliceBuilder;
     
     protected $sliceData;
-    
+
     public function setUp()
     {
         $this->sliceBuilder = $this->quickMock('\PHPixie\Slice');
+        $this->setUpChild();
         $this->sliceData = $this->sliceData();
+    }
+
+    public function setUpChild() {
+
     }
     
     /**
@@ -24,7 +29,7 @@ abstract class ImplementationTest extends \PHPixie\Test\Testcase
      */
     public function testConstruct()
     {
-        
+        $this->preventUseless();
     }
 
     /**
@@ -64,6 +69,11 @@ abstract class ImplementationTest extends \PHPixie\Test\Testcase
     protected function getSlice()
     {
         return $this->abstractMock('\PHPixie\Slice\Type\Slice');
+    }
+
+    protected function getEditableSlice()
+    {
+        return $this->abstractMock('\PHPixie\Slice\Type\Slice\Editable');
     }
     
     protected function getArraySlice()

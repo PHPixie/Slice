@@ -36,7 +36,7 @@ class IteratorTest extends \PHPixie\Test\Testcase
      */
     public function testConstruct()
     {
-        
+        $this->preventUseless();
     }
     
     /**

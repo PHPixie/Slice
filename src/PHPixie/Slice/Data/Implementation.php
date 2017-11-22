@@ -2,30 +2,23 @@
 
 namespace PHPixie\Slice\Data;
 
+use \PHPixie\Slice;
+
 abstract class Implementation implements \PHPixie\Slice\Data
 {
     protected $sliceBuilder;
 
-    /**
-     * @param \PHPixie\Slice $sliceBuilder
-     */
-    public function __construct($sliceBuilder)
+    public function __construct(Slice $sliceBuilder)
     {
         $this->sliceBuilder = $sliceBuilder;
     }
 
-    /**
-     * @return array|string|null
-     */
-    public function get($key = null, $default = null)
+    public function get(?string $key = null,  $default = null)
     {
         return $this->getData($key, false, $default);
     }
 
-    /**
-     * @return array|string|null
-     */
-    public function getRequired($key = null)
+    public function getRequired(?string $key = null)
     {
         return $this->getData($key, true);
     }
@@ -33,7 +26,7 @@ abstract class Implementation implements \PHPixie\Slice\Data
     /**
      * @return string
      */
-    protected function mergePath($prefix, $path = null)
+    protected function mergePath(?string $prefix, ?string $path = null) : string
     {
         if($prefix === null)
             return $path;

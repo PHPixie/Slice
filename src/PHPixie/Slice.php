@@ -2,39 +2,41 @@
 
 namespace PHPixie;
 
+use PHPixie\Slice\Data;
+
 class Slice
 {
-    public function iterator($data)
+    public function iterator(Slice\Data $data) : Slice\Iterator
     {
         return new Slice\Iterator($data);
     }
 
-    public function slice($data, $path = null)
+    public function slice(Data $data, ?string $path = null) : Slice\Type\Slice
     {
         return new Slice\Type\Slice($this, $data, $path);
     }
 
-    public function editableSlice($data, $path = null)
+    public function editableSlice(Data $data, ?string $path = null) : Slice\Type\Slice\Editable
     {
         return new Slice\Type\Slice\Editable($this, $data, $path);
     }
 
-    public function arrayData($data = null)
+    public function arrayData(?array $data = null) : Slice\Type\ArrayData
     {
         return new Slice\Type\ArrayData($this, $data);
     }
 
-    public function editableArrayData($data = null)
+    public function editableArrayData(?array $data = null) : Slice\Type\ArrayData\Editable
     {
         return new Slice\Type\ArrayData\Editable($this, $data);
     }
 
-    public function mergeData($baseData, $overrideData)
+    public function mergeData(Slice\Data $baseData, Slice\Data $overrideData) : Slice\Type\Merge
     {
         return new Slice\Type\Merge($this, $baseData, $overrideData);
     }
 
-    public function arraySlice($data = null, $path = null)
+    public function arraySlice(?array $data = null, ?string $path = null) : Slice\Type\ArrayData\Slice
     {
         return new Slice\Type\ArrayData\Slice($this, $data, $path);
     }

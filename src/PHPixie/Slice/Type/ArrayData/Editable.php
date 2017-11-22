@@ -2,18 +2,20 @@
 
 namespace PHPixie\Slice\Type\ArrayData;
 
-class Editable extends    \PHPixie\Slice\Type\ArrayData
-               implements \PHPixie\Slice\Data\Editable
+use PHPixie\Slice;
+
+class Editable extends    Slice\Type\ArrayData
+               implements Slice\Data\Editable
 {
     /**
      * @throws \PHPixie\Slice\Exception
      */
-    public function set($path, $value)
+    public function set(?string $path = null,  $value = null) : void
     {
         if ($path === null) {
             
             if (!is_array($value)) {
-                throw new \PHPixie\Slice\Exception("Only array values can be set as root");
+                throw new Slice\Exception("Only array values can be set as root");
             }
             $this->data = $value;
             return;
@@ -27,7 +29,7 @@ class Editable extends    \PHPixie\Slice\Type\ArrayData
     /**
      * @throws \PHPixie\Slice\Exception
      */
-    public function remove($path = null)
+    public function remove(?string $path = null) : void
     {
         if ($path === null) {
             $this->data = array();
@@ -42,10 +44,7 @@ class Editable extends    \PHPixie\Slice\Type\ArrayData
         }
     }
 
-    /**
-     * @return \PHPixie\Slice\Type\Slice\Editable
-     */
-    public function slice($path = null)
+    public function slice(?string $path = null) : Slice\Data\Slice
     {
         return $this->sliceBuilder->editableSlice($this, $path);
     }

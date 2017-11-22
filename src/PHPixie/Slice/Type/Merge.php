@@ -2,13 +2,15 @@
 
 namespace PHPixie\Slice\Type;
 
-class Merge extends \PHPixie\Slice\Data\Implementation
+use PHPixie\Slice;
+
+class Merge extends Slice\Data\Implementation
 {
     protected $baseData;
     protected $overrideData;
     protected $nullObject;
 
-    public function __construct($sliceBuilder, $baseData, $overrideData)
+    public function __construct(Slice $sliceBuilder, Slice\Data $baseData, Slice\Data $overrideData)
     {
         parent::__construct($sliceBuilder);
         $this->baseData = $baseData;
@@ -16,21 +18,13 @@ class Merge extends \PHPixie\Slice\Data\Implementation
         $this->nullObject = new \stdClass();
     }
 
-    /**
-     * @return array
-     * @throws \PHPixie\Slice\Exception
-     */
-    public function keys($path = null, $isRequired = false)
+    public function keys(?string $path = null, bool $isRequired = false) : ?array
     {
         $data = $this->getData($path, $isRequired, array());
         return array_keys($data);
     }
 
-    /**
-     * @return array|null
-     * @throws \PHPixie\Slice\Exception
-     */
-    public function getData($path = null, $isRequired = false, $default = null)
+    public function getData(?string $path = null, bool $isRequired = false,  $default = null)
     {
         $base = $this->baseData->get($path, $this->nullObject);
         $override = $this->overrideData->get($path, $this->nullObject);
@@ -57,26 +51,18 @@ class Merge extends \PHPixie\Slice\Data\Implementation
         return array_replace_recursive($base, $override);
     }
 
-    /**
-     * @param null $path
-     * @return \PHPixie\Slice\Type\ArrayData\Slice
-     */
-    public function slice($path = null)
+    public function slice(?string $path = null) : Slice\Data\Slice
     {
         return $this->arraySlice($path);
     }
 
-    /**
-     * @param null $path
-     * @return \PHPixie\Slice\Type\ArrayData\Slice
-     */
-    public function arraySlice($path = null)
+    public function arraySlice(?string $path = null) : ArrayData\Slice
     {
         $data = $this->get($path);
         return $this->sliceBuilder->arraySlice($data, $path);
     }
 
-    public function getIterator()
+    public function getIterator() : \ArrayIterator
     {
         return new \ArrayIterator($this->getData(null, false, array()));
     }
